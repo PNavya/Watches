@@ -1,10 +1,13 @@
 package com.niit.ShoppingCart.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +66,7 @@ public class CategoryController {
 	@RequestMapping("category/delete/{catid}")
 	public ModelAndView deleteCategory(@PathVariable("catid") String catid,Category cat) throws Exception {
 		category = categoryDAO.get(catid);
-		ModelAndView mv = new ModelAndView("category");
+		ModelAndView mv = new ModelAndView("viewcategory");
 		System.out.println("delete");
 		//if (category == null) {
 			//mv.addObject("errorMessage", "could not delete the category");
@@ -73,18 +76,26 @@ public class CategoryController {
 		return mv;
 	}
 
-	@RequestMapping(value = "category/update/{catid}", method = RequestMethod.GET)
-	public ModelAndView updateCategory(@ModelAttribute("category") Category cat) {
-		ModelAndView mv = new ModelAndView();
-
-		//if (categoryDAO.get(category.getId()) != null) {
-			categoryDAO.update(cat);
-			mv.addObject("message", "Successfully updated");
-
-		//}// else {
-			//mv.addObject("errorMessage", "could update the record");
-		//}
+	@RequestMapping(value = "/update/{catid}")
+	public ModelAndView updateCategory(@PathVariable("catid") String catid) {
+		ModelAndView mv = new ModelAndView("updateCategory");
+		System.out.println("update");
+		category=categoryDAO.get(catid);
+		System.out.println("getCatid()");
+		mv.addObject("cat", category);
+		mv.addObject("categoryList", this.categoryDAO.list());
+		
 		return mv;
 	}
+	@RequestMapping(value = "*/edit/{catid}", method = RequestMethod.POST)
+	public ModelAndView edit(@ModelAttribute("category") Category cat,BindingResult result,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("viewcategory");
+		System.out.println("hai");
+		categoryDAO.update(cat);
+		mv.addObject("categoryList", categoryDAO.list());
+		
+		return mv;
+	}
+	
 
 }

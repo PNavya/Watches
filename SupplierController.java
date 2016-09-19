@@ -1,9 +1,12 @@
 package com.niit.ShoppingCart.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,17 +57,27 @@ public class SupplierController {
 		{
 			supplierDAO.delete(sup);
 		}
-		return "addSupplier";
+		return "viewsupplier";
 	}
-	@RequestMapping("supplier/update/{supId}")
-	public String editSupplier(@PathVariable("supId") String supId, ModelMap model){
-		
+	@RequestMapping("sup/{supId}")
+	public ModelAndView sup(@PathVariable("supId") String supId, ModelMap model){
+		ModelAndView mv = new ModelAndView("updateSupplier");
 		System.out.println("edit supplier");
+		//supplier=supplierDAO.get(supId);
+		System.out.println("supplier list");
 		model.addAttribute("supplier",this.supplierDAO.get(supId));
 		model.addAttribute("listSuppliers",this.supplierDAO.list());		
 	
-		return "addSupplier";
+		return mv;
 	
-	
+	}
+	@RequestMapping(value = "*/editsupplier/{supId}", method = RequestMethod.POST)
+	public ModelAndView editsup(@ModelAttribute("supplier") Supplier supp,BindingResult result,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("viewsupplier");
+		System.out.println("hai");
+		supplierDAO.update(supp);
+		mv.addObject("supplierList", supplierDAO.list());
+		
+		return mv;
 	}
 }
