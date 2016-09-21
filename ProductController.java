@@ -4,10 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +20,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.niit.ShoppingCart.dao.CategoryDAO;
 import com.niit.ShoppingCart.dao.ProductDAO;
 import com.niit.ShoppingCart.model.Category;
@@ -115,6 +122,39 @@ public class ProductController {
 		return "addProduct";
 	
 	
+	}
+	@RequestMapping("/viewdetails")
+	public ModelAndView viewItems() throws JsonGenerationException, JsonMappingException, IOException {
+		List<Product> list = productDAO.list();
+		System.out.println("user list=" + list);
+		ObjectMapper om = new ObjectMapper();
+		String listjson = om.writeValueAsString(list);
+		System.out.println(listjson);
+		return new ModelAndView("viewdetails", "listofitem", listjson);
+	}
+
+	@RequestMapping("/viewproducts")
+	public ModelAndView productViewDetails(@RequestParam("prodid") String prodid,Model model) {
+		System.out.println("I am in productViewDetails");
+		System.out.println("ID:" + prodid);
+		//int i = Integer.parseInt(prodid);
+		model.addAttribute("productList", this.productDAO.list());
+		Product product = productDAO.get(prodid);
+		return new ModelAndView("viewproducts", "product", product);
+	}
+
+	String setName;
+	List<Product> plist;
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/GsonCon")
+	public @ResponseBody String getValues() throws Exception {
+		String result = "";
+		plist = productDAO.list();
+		Gson gson = new Gson();
+		result = gson.toJson(plist);
+		return result;
+
 	}
 
 }

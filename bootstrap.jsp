@@ -14,7 +14,7 @@
 		<!-- Wrapper for slides -->
 		<div class="carousel-inner" role="listbox">
 			<div class="item active">
-				<img src="titan-foliage-collection-page.jpg" style="">
+				<img src="resources/images/titan-foliage-collection-page.jpg" style="">
 				<div class="carousel-caption">
 					<h3>Titan</h3>
 
@@ -22,7 +22,7 @@
 			</div>
 
 			<div class="item">
-				<img src="Bandhan_1.jpg" style="">
+				<img src="resources/images/titanwatches.jpg" style="">
 				<div class="carousel-caption">
 					<h3>Titan Raga Collections</h3>
 
@@ -30,15 +30,15 @@
 			</div>
 
 			<div class="item">
-				<img src="titan.jpg" style="">
+				<img src="resources/images/Wrist.jpg" style="">
 				<div class="carousel-caption">
-					<h3>Titan</h3>
+					<h3>Wrist Watches</h3>
 
 				</div>
 			</div>
 
 			<div class="item">
-				<img src="gc_watches.jpg" style="">
+				<img src="resources/images/Guess.jpg" style="">
 				<div class="carousel-caption">
 					<h3>Guess Collections</h3>
 
@@ -75,20 +75,20 @@
 				</a>
 			</div>
 			<div class="col-md-4">
-				<a href="apple.jpg" class="thumbnail">
+				<a href="resources/images/apple.jpg" class="thumbnail">
 					<p>New Imported Apple Watch MJ472 42mm Stainless Steel Case
 						with Link Bracelet</p> <img src="apple.jpg"
 					style="width: 150px; height: 150px">
 				</a>
 			</div>
 			<div class="col-md-4">
-				<a href="apple1.jpg" class="thumbnail">
+				<a href="resources/images/apple1.jpg" class="thumbnail">
 					<p>Spigen Apple Watch Case (38mm) Slim Armor (White) (+2 Film)
 						SGP11557</p> <img src="apple1.jpg" style="width: 150px; height: 150px">
 				</a>
 			</div>
 			<div class="col-md-4">
-				<a href="xiaomi.jpg" class="thumbnail">
+				<a href="resources/images/xiaomi.jpg" class="thumbnail">
 					<p>Original NEW Xiaomi Mi Band 2 SmartWatch for Android iOS
 						-Black (With HeartRate)</p> <img src="xiaomi.jpg"
 					style="width: 150px; height: 150px">
