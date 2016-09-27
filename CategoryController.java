@@ -45,7 +45,7 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/category/add", method = RequestMethod.POST)
-	public ModelAndView addCategory(@ModelAttribute("category") Category cat) {
+	public ModelAndView category(@ModelAttribute("category") Category cat) {
 		Log.debug("starting of the method addCategory");
 
 		ModelAndView mv = new ModelAndView("category");

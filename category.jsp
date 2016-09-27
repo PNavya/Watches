@@ -1,3 +1,4 @@
+<%@include file="admin.jsp"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -8,6 +9,7 @@
  </head>
  
  <body>
+<div align="center">
  ${msg}
  <h1>Add a Category</h1>
  <c:url var="addAction" value="/category/add"> </c:url>
@@ -17,7 +19,7 @@
  <td>Category Id:</td>
  <c:choose>
  <c:when test="${!empty category.catid}">
- <td><form:input path="catid" disabled="true" readonly="true"/></td>
+ <td><form:input path="catid"  value=""/></td>
  </c:when>
  <c:otherwise>
  <td><form:input path="catid" pattern="{4,7}" required="true" title="id should contain 4 to 7 characters"/></td>
@@ -27,12 +29,12 @@
  
  <tr>
  <td>Category Name:</td>
- <td><form:input path="name" required="true"/></td>
+ <td><form:input path="name" required="true" value=""/></td>
  </tr>
  
 <tr>
 <td>Category Description:</td>
- <td><form:input path="description" required="true"/></td>
+ <td><form:input path="description" required="true" value=""/></td>
  </tr>
  <tr>
  <%-- <td colspan="2"><c:if test="${!empty category.name}">
@@ -46,7 +48,7 @@
 <br>
 <h3>Category List</h3>
 <c:if test="${!empty categoryList}">
-<table class= "tg">
+<table class= "table table-striped">
 <tr>
 <th width ="80">Category ID</th>
 <th width ="120">Category Name</th>
@@ -60,11 +62,12 @@
 <td>${category.catid}</td>
 <td>${category.name}</td>
 <td>${category.description}</td>
-<td><a href="<c:url value='category/update/${category.catid}'/>">Update</a></td>
+<td><a href="<c:url value='update/${category.catid}'/>">Update</a></td>
 <td><a href="<c:url value='category/delete/${category.catid}'/>">Delete</a></td>
 </tr>
 </c:forEach>
 </table>
 </c:if>
+</div>
 </body>
  </html>
