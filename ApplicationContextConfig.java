@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.ShoppingCart.dao.CartDAO;
+import com.niit.ShoppingCart.dao.CartDAOImpl;
 import com.niit.ShoppingCart.dao.CategoryDAO;
 import com.niit.ShoppingCart.dao.CategoryDAOImpl;
+/*import com.niit.ShoppingCart.dao.CustomerDao;
+import com.niit.ShoppingCart.dao.CustomerDaoImpl;*/
 import com.niit.ShoppingCart.dao.ProductDAO;
 import com.niit.ShoppingCart.dao.ProductDAOImpl;
 import com.niit.ShoppingCart.dao.SupplierDAO;
@@ -23,6 +27,10 @@ import com.niit.ShoppingCart.dao.SupplierDAOImpl;
 import com.niit.ShoppingCart.dao.UserDetailsDAO;
 import com.niit.ShoppingCart.dao.UserDetailsDAOImpl;
 import com.niit.ShoppingCart.model.Category;
+import com.niit.ShoppingCart.model.Cart;
+//import com.niit.ShoppingCart.model.CartItem;
+import com.niit.ShoppingCart.model.Category;
+//import com.niit.ShoppingCart.model.Customer;
 import com.niit.ShoppingCart.model.Product;
 import com.niit.ShoppingCart.model.Supplier;
 import com.niit.ShoppingCart.model.UserDetails;
@@ -52,7 +60,7 @@ public class ApplicationContextConfig {
 	    properties.put("hibernate.show_sql", "true");
 	    properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
 	    properties.put("hibernate.hbm2ddl.auto", "update");
-	   // properties.put("hibernate.current_session_context_class", "thread");
+	   //properties.put("hibernate.current_session_context_class", "thread");
 	    return properties;
 	}
 	@Autowired
@@ -66,6 +74,9 @@ public class ApplicationContextConfig {
 	  sessionBuilder.addAnnotatedClasses(Supplier.class);
 	  sessionBuilder.addAnnotatedClasses(Product.class);
 	   sessionBuilder.addAnnotatedClasses(UserDetails.class);
+	   sessionBuilder.addAnnotatedClasses(Cart.class);
+	  //sessionBuilder.addAnnotatedClasses(CartItem.class);
+	 //sessionBuilder.addAnnotatedClasses(Customer.class);
 	 
 	    return sessionBuilder.buildSessionFactory();
 	}
@@ -132,7 +143,46 @@ public class ApplicationContextConfig {
 	    {
 	    	return new UserDetails();
 	    }*/
-
+	    @Autowired
+		@Bean(name="cartDAO")
+		public CartDAO getCartDao(SessionFactory sessionFactory) {
+		    
+		 
+		    return new CartDAOImpl(sessionFactory);
+		}
+	    @Autowired
+	    @Bean(name="cart")
+	    public Cart getCart()
+	    {
+	    	return new Cart();
+	    }
+	   /* @Autowired
+		@Bean(name="cartItemDao")
+		public CartItemDao getCartItemDao(SessionFactory sessionFactory) {
+		    
+		 
+		    return new CartItemDaoImpl();
+		}
+	    @Autowired
+	    @Bean(name="cartItem")
+	    public CartItem getCartItem()
+	    {
+	    	return new CartItem();
+	    }
+	    @Autowired
+		@Bean(name="CustomerDao")
+		public CustomerDao getCustomerDao(SessionFactory sessionFactory) {
+		    
+		 
+		    return new CustomerDaoImpl();
+		}
+	    @Autowired
+	    @Bean(name="customer")
+	    public Customer getCustomer()
+	    {
+	    	return new Customer();
+	    }
+*/
 
 
 
